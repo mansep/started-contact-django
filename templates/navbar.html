@@ -2,7 +2,7 @@
 <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a href="#"><img src="{% static 'images/logo.png' %}" height="45" class="d-inline-block align-top"/></a>
+        <a href="#">Koisoft Started App</a>
         <div id="close-sidebar">
           <i class="fas fa-times"></i>
         </div>
@@ -11,9 +11,9 @@
         <div class="col-4">
             <div class="user-pic">
                 {% if profile.picture %}
-                    <img class="img-responsive img-rounded" src="{{ profile.picture.url }}" alt="User picture">
+                    <img class="img-responsive rounded-circle" src="{{ profile.picture.url }}" alt="User picture">
                 {% else %}
-                    <img class="img-responsive img-rounded" src="{% static 'images/default-profile.png' %}" alt="User picture">
+                    <img class="img-responsive rounded-circle" src="{% static 'images/default-profile.png' %}" alt="User picture">
                 {% endif %}
             </div>
         </div>

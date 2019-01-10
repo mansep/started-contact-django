@@ -59,6 +59,7 @@ def profile_update(request):
 @login_required
 def change_password(request):
 	"""Change password user"""
+	profile = request.user.profile
 	if request.method == 'POST':
 		form = ChangePasswordForm(request.POST)
 		if form.is_valid():
@@ -80,6 +81,7 @@ def change_password(request):
 		request=request, 
 		template_name = 'users/change_password.html',
 		context={
+			'profile': profile,
 			'user': request.user,
 			'form': form
 		}
