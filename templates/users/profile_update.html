@@ -19,12 +19,13 @@
 					{% endif %}
 					<div class="text-center">
 						{% if profile.picture %}
-							<img src="{{ profile.picture.url }}" class="rounded-circle" alt="{{ user.get_full_name }}" width="140" height="140">
+							<img id="profile_picture" src="{{ profile.picture.url }}" class="rounded-circle border-img" alt="{{ user.get_full_name }}" width="140" height="140">
 						{% else %}
-							<img src="{% static 'images/default-profile.png' %}" class="rounded-circle" alt="{{ user.get_full_name }}" width="140" height="140">
+							<img id="profile_picture" src="{% static 'images/default-profile.png' %}" class="rounded-circle border-img" alt="{{ user.get_full_name }}" width="140" height="140">
 						{% endif %}
 						<br/>
-                		<a href="#" type="button" class="btn btn-outline-secondary btn-sm">Change profile image</a>
+                		<button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="openImageDialog()">Change profile image</button>
+						<input type="file" id="picture" name="picture"  required="true" style="display:none" onchange="previewImage()">
 					</div
 					<br/>
 
@@ -53,3 +54,20 @@
 {% endblock %}
 
 
+{% block scripts_content %}
+	<script>
+		openImageDialog = () =>{
+			document.getElementById("picture").click();
+		}
+		previewImage = () => {
+			input = document.getElementById("picture")
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					document.getElementById('profile_picture').src=e.target.result;
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+{% endblock %}

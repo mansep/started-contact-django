@@ -23,7 +23,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% if profile.picture %}
-                        <img src="{{ profile.picture.url }}" height="35" class="d-inline-block align-top rounded-circle"/>
+                        <img src="{{ profile.picture.url }}" height="35" width="35" class="d-inline-block align-top rounded-circle"/>
                     {% else %}
                         <img src="{% static 'images/default-profile.png' %}" height="35" class="d-inline-block align-top rounded-circle"/>
                     {% endif %}

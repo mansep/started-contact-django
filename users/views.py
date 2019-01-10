@@ -32,7 +32,13 @@ def update_profile(request):
 		if form.is_valid():
 			data = form.cleaned_data
 
-			profile.phone_number = data['phone']
+			user = request.user
+
+			user.first_name = data['first_name']
+			user.last_name = data['last_name']
+			user.save()
+
+			profile.phone = data['phone']
 			profile.picture = data['picture']
 			profile.save()
 
@@ -59,7 +65,7 @@ def login(request):
 		user = authenticate(request, username=username, password=password)
 		if user:
 			login_auth(request, user)
-			return redirect('/users')
+			return redirect('/users/me')
 		else:
 			return render(request, 'login.html', {'error': 'Invalid username and password'})
 
