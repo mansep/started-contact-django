@@ -64,14 +64,15 @@ def change_password(request):
 		form = ChangePasswordForm(request.POST)
 		if form.is_valid():
 			data = form.cleaned_data
+			user = request.user
 			if data['new_password'] == data['retry_password']:
-				user = authenticate(request, username=request.user.username, password=data['current_password'])
-				if user:
+				is_chequed = user.check_password(data['current_password'])
+				if is_chequed:
 					user.set_password(data['new_password'])
 					user.save()
 					return redirect('profile_view')
 				else:
-					return render(request, 'users/change_password.html', {'error': 'Invalid username and password'})
+					return render(request, 'users/change_password.html', {'error': 'Invalid password'})
 			else:
 				return render(request, 'users/change_password.html', {'error': 'New password does not match'})
 	else:
@@ -96,7 +97,7 @@ def login(request):
 		user = authenticate(request, username=username, password=password)
 		if user:
 			login_auth(request, user)
-			return redirect('profile_view')
+			return redirect('dashboard_view')
 		else:
 			return render(request, 'login.html', {'error': 'Invalid username and password'})
 

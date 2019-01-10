@@ -69,6 +69,14 @@
                 <span>Change password</span>
             </a>
           </li>
+          {% if user.is_superuser %}
+          <li>
+            <a href='{% url "admin:index" %}'>
+                <i class="fab fa-python"></i>
+                <span>Django admin page</span>
+            </a>
+          </li>
+          {% endif %}
         </ul>
       </div>
       <!-- sidebar-menu  -->

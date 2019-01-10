@@ -7,7 +7,10 @@
 {% endblock %}
 
 {% block container %}
-	<div class="row justify-content-md-center">
+	<h2>Update profile</h2>
+	<p class="font-weight-light small">Complete form to change your profile</p>
+	<hr/>
+	<div class="row justify-content-md-center mt-3">
 		<div class="col-5">			
 			<form action="{% url 'profile_update' %}" method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
