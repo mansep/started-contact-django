@@ -32,7 +32,7 @@
             <span>General</span>
           </li>
           <li class="active">
-            <a href="#">
+            <a href="{% url "dashboard_view" %}">
               <i class="fa fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </a>
@@ -58,7 +58,7 @@
             <span>User</span>
           </li>
           <li>
-            <a href='{% url "index" %}'>
+            <a href='{% url "profile_view" %}'>
                 <i class="far fa-address-card"></i>
                 <span>Profile</span>
             </a>
@@ -76,7 +76,7 @@
     <!-- sidebar-content  -->
     <div class="sidebar-footer">
       <a href='{% url "logout" %}'>
-        <i class="fa fa-power-off"></i>
+        <i class="fa fa-power-off"></i> Logout
       </a>
     </div>
 </nav>

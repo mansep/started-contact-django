@@ -10,7 +10,7 @@ from users.models import Profile
 from users.forms import ProfileForm, ChangePasswordForm
 
 @login_required
-def index(request):
+def profile_view(request):
 	"""Profile view"""
 	profile = request.user.profile
 	
@@ -24,7 +24,7 @@ def index(request):
 	)
 
 @login_required
-def update_profile(request):
+def profile_update(request):
 	"""Update profile user"""
 	profile = request.user.profile
 	if request.method == 'POST':
@@ -42,7 +42,7 @@ def update_profile(request):
 			profile.picture = data['picture']
 			profile.save()
 
-			return redirect('update_profile')
+			return redirect('profile_update')
 	else:
 		form = ProfileForm()	
 
@@ -68,7 +68,7 @@ def change_password(request):
 				if user:
 					user.set_password(data['new_password'])
 					user.save()
-					return redirect('/users/me')
+					return redirect('profile_view')
 				else:
 					return render(request, 'users/change_password.html', {'error': 'Invalid username and password'})
 			else:
@@ -94,7 +94,7 @@ def login(request):
 		user = authenticate(request, username=username, password=password)
 		if user:
 			login_auth(request, user)
-			return redirect('/users/me')
+			return redirect('profile_view')
 		else:
 			return render(request, 'login.html', {'error': 'Invalid username and password'})
 
