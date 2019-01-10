@@ -7,48 +7,45 @@
 {% endblock %}
 
 {% block container %}
+	<div class="row justify-content-md-center">
+		<div class="col-5">			
+			<form action="{% url 'update_profile' %}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
 
-	<div class="container">
-		<div class="row justify-content-md-center">
-            <div class="col-5">			
-				<form action="{% url 'update_profile' %}" method="POST" enctype="multipart/form-data">
-					{% csrf_token %}
-
-					{% if form.error %}
-					<p class="alert alert-danger">{{ form.error }}</p>
+				{% if form.error %}
+				<p class="alert alert-danger">{{ form.error }}</p>
+				{% endif %}
+				<div class="text-center">
+					{% if profile.picture %}
+						<img id="profile_picture" src="{{ profile.picture.url }}" class="rounded-circle border-img" alt="{{ user.get_full_name }}" width="140" height="140">
+					{% else %}
+						<img id="profile_picture" src="{% static 'images/default-profile.png' %}" class="rounded-circle border-img" alt="{{ user.get_full_name }}" width="140" height="140">
 					{% endif %}
-					<div class="text-center">
-						{% if profile.picture %}
-							<img id="profile_picture" src="{{ profile.picture.url }}" class="rounded-circle border-img" alt="{{ user.get_full_name }}" width="140" height="140">
-						{% else %}
-							<img id="profile_picture" src="{% static 'images/default-profile.png' %}" class="rounded-circle border-img" alt="{{ user.get_full_name }}" width="140" height="140">
-						{% endif %}
-						<br/>
-                		<button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="openImageDialog()">Change profile image</button>
-						<input type="file" id="picture" name="picture"  required="true" style="display:none" onchange="previewImage()">
-					</div
 					<br/>
+					<button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="openImageDialog()">Change profile image</button>
+					<input type="file" id="picture" name="picture"  required="true" style="display:none" onchange="previewImage()">
+				</div
+				<br/>
 
-					<div class="form-group">
-						<label>First Name</label>
-						<input class="form-control" type="text" name="first_name" placeholder="First Name" value="{{ user.first_name }}" />
-					</div>
+				<div class="form-group">
+					<label>First Name</label>
+					<input class="form-control" type="text" name="first_name" placeholder="First Name" value="{{ user.first_name }}" />
+				</div>
 
-					<div class="form-group">
-						<label>Last Name</label>
-						<input class="form-control" type="text" name="last_name" placeholder="Last Name" value="{{ user.last_name }}" />
-					</div>
+				<div class="form-group">
+					<label>Last Name</label>
+					<input class="form-control" type="text" name="last_name" placeholder="Last Name" value="{{ user.last_name }}" />
+				</div>
 
-					<div class="form-group">
-						<label>Phone number</label>
-						<input class="form-control" type="text" name="phone" placeholder="Phone number" value="{{ profile.phone }}"
-						 />
-					</div>
+				<div class="form-group">
+					<label>Phone number</label>
+					<input class="form-control" type="text" name="phone" placeholder="Phone number" value="{{ profile.phone }}"
+						/>
+				</div>
 
-					<button type="submit" class="btn btn-success btn-block mt-5">Save</button>
+				<button type="submit" class="btn btn-success btn-block mt-5">Save</button>
 
-				</form>
-            </div>
+			</form>
 		</div>
 	</div>
 {% endblock %}

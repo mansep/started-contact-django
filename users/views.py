@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 
 from users.models import Profile
-from users.forms import ProfileForm
+from users.forms import ProfileForm, ChangePasswordForm
 
 @login_required
 def index(request):
@@ -23,7 +23,7 @@ def index(request):
 		}
 	)
 
-
+@login_required
 def update_profile(request):
 	"""Update profile user"""
 	profile = request.user.profile
@@ -51,6 +51,35 @@ def update_profile(request):
 		template_name = 'users/profile_update.html',
 		context={
 			'profile': profile,
+			'user': request.user,
+			'form': form
+		}
+	)
+
+@login_required
+def change_password(request):
+	"""Change password user"""
+	if request.method == 'POST':
+		form = ChangePasswordForm(request.POST)
+		if form.is_valid():
+			data = form.cleaned_data
+			if data['new_password'] == data['retry_password']:
+				user = authenticate(request, username=request.user.username, password=data['current_password'])
+				if user:
+					user.set_password(data['new_password'])
+					user.save()
+					return redirect('/users/me')
+				else:
+					return render(request, 'users/change_password.html', {'error': 'Invalid username and password'})
+			else:
+				return render(request, 'users/change_password.html', {'error': 'New password does not match'})
+	else:
+		form = ChangePasswordForm()	
+
+	return render(
+		request=request, 
+		template_name = 'users/change_password.html',
+		context={
 			'user': request.user,
 			'form': form
 		}
