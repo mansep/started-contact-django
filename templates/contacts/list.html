@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head_content %}
+<title>Koisoft Started | Contacts list</title>
+{% endblock %}
+
+{% block container %}
+	<h2>Contacts - List</h2>
+	<hr/>
+	<div class="row justify-content-md-center mt-5">
+		<div class="col-12">			
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                        <td>{{ contact.id_document }}</td>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.email }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                
+                {% if contacts.has_other_pages %}
+                <ul class="pagination">
+                    {% if contacts.has_previous %}
+                    <li><a href="?page={{ contacts.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in contacts.paginator.page_range %}
+                    {% if contacts.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if contacts.has_next %}
+                    <li><a href="?page={{ contacts.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block scripts_content %}
+{% endblock %}

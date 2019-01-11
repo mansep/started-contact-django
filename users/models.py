@@ -5,16 +5,15 @@ from django.db import models
 
 class Profile(models.Model):
 	"""
-		profile model 
+	profile model 
 	"""
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	
-	phone = models.CharField(max_length=20, blank=True)
 
+	user = models.OneToOneField(User, on_delete=models.CASCADE)	
+	phone = models.CharField(max_length=20, blank=True)
 	picture = models.ImageField(
-			upload_to='users/pictures',
-			blank=True,
-			null=True
+		upload_to='users/pictures',
+		blank=True,
+		null=True
 	)
 
 	created = models.DateTimeField(auto_now_add=True)

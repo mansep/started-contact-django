@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from app.models import Country
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+
+	list_display = ('pk', 'name',)
+	fieldsets = (
+		('Country', {
+			'fields': ('name',),
+		}),
+	)
