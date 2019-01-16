@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head_content %}
+<title>Koisoft Started | Delete contact {{ contact.id_document }}</title>
+{% endblock %}
+
+{% block container %}
+	<h2>Delete Contact</h2>
+	<p class="font-weight-light small">Confirm to remove contact</p>
+	<hr/>
+	<div class="row justify-content-md-center mt-5" id="view_contact">
+		<div class="col-12">	
+			<form action="{% url 'contacts_delete' contact.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                                
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <div class="row">    
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="form-group">
+                            <label>Identification document</label>
+                            <br/>
+                            <strong id="id_document">{{ contact.id_document }}</strong>
+                        </div>
+                    </div>   
+                    <div class="col-lg-9  col-sm-6">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <br/>
+                            <strong>
+                            {{ contact.name }}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+				<button type="submit" class="btn btn-danger btn-block mt-5">Delete contact</button>
+
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts_content %}
+    <script src="{% static 'js/html2canvas.js' %}"></script>
+	<script src="{% static 'js/jspdf.min.js' %}"></script>
+
+	<script>
+
+        to_pdf = () => {
+            
+                var pdf = new jsPDF('p', 'pt', 'letter');
+                pdf.html($("#view_contact").html(), {callback: function(pdf) {
+                    //window.open(pdf.output('datauristring'), '_blank');
+                    pdf.save($("#id_document").html()+".pdf");
+                }});
+        }
+		
+     </script>
+
+{% endblock %}

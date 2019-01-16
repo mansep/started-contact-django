@@ -29,8 +29,8 @@
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="{% url 'contacts_view' contact.id %}" class="btn btn-outline-secondary">View</a>
-                                <a href="{% url 'contacts_edit' contact.id %}" class="btn btn-outline-secondary">Edit</a>
-                                <a href="" class="btn btn-outline-secondary">Delete</a>
+                                <a href="{% url 'contacts_update' contact.id %}" class="btn btn-outline-secondary">Edit</a>
+                                <a href="{% url 'contacts_delete' contact.id %}" class="btn btn-outline-secondary">Delete</a>
                             </div>
                         </td>
                     </tr>

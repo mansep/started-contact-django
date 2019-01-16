@@ -85,7 +85,7 @@ def contacts_create(request):
 
 
 @login_required
-def contacts_edit(request, id):
+def contacts_update(request, id):
     """Contacts Edit view"""
     profile = request.user.profile
     contact = Contact.objects.get(pk=id)    
@@ -112,6 +112,23 @@ def contacts_view(request, id):
     return render(
         request=request, 
         template_name = 'contacts/view.html',
+        context={
+            'profile': profile,
+            'contact': contact,
+            'user': request.user
+        }
+    )
+
+
+@login_required
+def contacts_delete(request, id):
+    """Contacts delete"""
+    profile = request.user.profile
+    contact = Contact.objects.get(pk=id)    
+
+    return render(
+        request=request, 
+        template_name = 'contacts/delete.html',
         context={
             'profile': profile,
             'contact': contact,
