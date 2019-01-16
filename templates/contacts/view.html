@@ -10,24 +10,24 @@
 	<h2>View Contact</h2>
 	<p class="font-weight-light small">Contact {{ contact.id_document }}</p>
 	<hr/>
-	<div class="row justify-content-md-center mt-5">
+	<div class="row justify-content-md-center mt-5" id="view_contact">
 		<div class="col-12">	
                 <div class="row">          
-                    <div class="col-12 text-center mb-5">
+                    <div class="col-lg-12 text-center mb-5">
                         {% if contact.picture %}
                             <img id="contact_picture" src="{{ contact.picture.url }}" class="rounded-circle border-img" width="150" height="150">
                         {% else %}
                             <img id="contact_picture" src="{% static 'images/default-profile.png' %}" class="rounded-circle border-img" width="150" height="150">
                         {% endif %}
                     </div>
-                    <div class="col-3">
+                    <div class="col-lg-3 col-sm-6">
                         <div class="form-group">
                             <label>Identification document</label>
                             <br/>
-                            <strong>{{ contact.id_document }}</strong>
+                            <strong id="id_document">{{ contact.id_document }}</strong>
                         </div>
                     </div>   
-                    <div class="col-3">
+                    <div class="col-lg-3 col-sm-6">
                         <div class="form-group">
                             <label>Type contact</label>
                             <br/>
@@ -42,7 +42,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-lg-12">
                         <div class="form-group">
                             <label>Full Name</label>
                             <br/>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-12">
                         <div class="form-group">
                             <label>Address</label>
                             <br/>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-lg-4 col-sm-6">
                         <div class="form-group">
                             <label>State</label>
                             <br/>
@@ -73,7 +73,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-lg-4 col-sm-6">
                         <div class="form-group">
                             <label>City</label>
                             <br/>
@@ -82,7 +82,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-lg-4 col-sm-6">
                         <div class="form-group">
                             <label>Country</label>
                             <br/>
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-lg-4 col-sm-6">
                         <div class="form-group">
                             <label>Phone</label>
                             <br/>
@@ -102,7 +102,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-lg-4 col-sm-6">
                         <div class="form-group">
                             <label>Fax</label>
                             <br/>
@@ -111,7 +111,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-lg-4 col-sm-6">
                         <div class="form-group">
                             <label>Mobile</label>
                             <br/>
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-6">
                         <div class="form-group">
                             <label>Email</label>
                             <br/>
@@ -131,7 +131,7 @@
                             </strong>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-6">
                         <div class="form-group">
                             <label>Website</label>
                             <br/>
@@ -141,9 +141,28 @@
                         </div>
                     </div>
                 </div>
-				<button type="submit" class="btn btn-danger mt-5"> <i class="fas fa-file-pdf"></i> Export to PDF</button>
+				<button type="button" onclick="to_pdf()" class="btn btn-danger mt-5"> <i class="fas fa-file-pdf"></i> Export to PDF</button>
 
 			</form>
 		</div>
 	</div>
+{% endblock %}
+
+{% block scripts_content %}
+    <script src="{% static 'js/html2canvas.js' %}"></script>
+	<script src="{% static 'js/jspdf.min.js' %}"></script>
+
+	<script>
+
+        to_pdf = () => {
+            
+                var pdf = new jsPDF('p', 'pt', 'letter');
+                pdf.html($("#view_contact").html(), {callback: function(pdf) {
+                    //window.open(pdf.output('datauristring'), '_blank');
+                    pdf.save($("#id_document").html()+".pdf");
+                }});
+        }
+		
+     </script>
+
 {% endblock %}
