@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head_content %}
+<title>Koisoft Started | View Contact {{ contact.id_document }}</title>
+{% endblock %}
+
+{% block container %}
+	<h2>View Contact</h2>
+	<p class="font-weight-light small">Contact {{ contact.id_document }}</p>
+	<hr/>
+	<div class="row justify-content-md-center mt-5">
+		<div class="col-12">	
+                <div class="row">          
+                    <div class="col-12 text-center mb-5">
+                        {% if contact.picture %}
+                            <img id="contact_picture" src="{{ contact.picture.url }}" class="rounded-circle border-img" width="150" height="150">
+                        {% else %}
+                            <img id="contact_picture" src="{% static 'images/default-profile.png' %}" class="rounded-circle border-img" width="150" height="150">
+                        {% endif %}
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Identification document</label>
+                            <br/>
+                            <strong>{{ contact.id_document }}</strong>
+                        </div>
+                    </div>   
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Type contact</label>
+                            <br/>
+                            <strong>
+                            {% if contact.type == 'C' %}
+                                Client
+                            {% elif contact.type == 'P' %}
+                                Provider
+                            {% elif contact.type == 'E' %}
+                                Employee
+                            {% endif %}
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <br/>
+                            <strong>
+                            {{ contact.name }}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <br/>
+                            <strong>
+                            {{ contact.address }}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>State</label>
+                            <br/>
+                            <strong>
+                            {{ contact.state }}
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>City</label>
+                            <br/>
+                            <strong>
+                            {{ contact.city }}
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Country</label>
+                            <br/>
+                            <strong>
+                            {{ contact.country.name }}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <br/>
+                            <strong>
+                            {{ contact.phone }}
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Fax</label>
+                            <br/>
+                            <strong>
+                            {{ contact.fax }}
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Mobile</label>
+                            <br/>
+                            <strong>
+                            {{ contact.mobile }}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <br/>
+                            <strong>
+                            {{ contact.email }}
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Website</label>
+                            <br/>
+                            <strong>
+                            {{ contact.website }}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+				<button type="submit" class="btn btn-danger mt-5"> <i class="fas fa-file-pdf"></i> Export to PDF</button>
+
+			</form>
+		</div>
+	</div>
+{% endblock %}

@@ -11,7 +11,7 @@ class ContactAdmin(admin.ModelAdmin):
 
 	fieldsets = (
 		('ID', {
-			'fields': (('id_document', 'name')),
+			'fields': (('id_document', 'name', 'type')),
 		}),
 		('Address', {
 			'fields': (

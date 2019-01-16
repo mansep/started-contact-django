@@ -17,6 +17,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,13 @@
                         <td>{{ contact.id_document }}</td>
                         <td>{{ contact.name }}</td>
                         <td>{{ contact.email }}</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="{% url 'contacts_view' contact.id %}" class="btn btn-outline-secondary">View</a>
+                                <a href="{% url 'contacts_edit' contact.id %}" class="btn btn-outline-secondary">Edit</a>
+                                <a href="" class="btn btn-outline-secondary">Delete</a>
+                            </div>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

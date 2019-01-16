@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head_content %}
+<title>Koisoft Started | Edit Contact {{ contact.id_document }}</title>
+{% endblock %}
+
+{% block container %}
+	<h2>Edit Contact</h2>
+	<p class="font-weight-light small">Contact {{ contact.id_document }}</p>
+	<hr/>
+	<div class="row justify-content-md-center mt-5">
+		<div class="col-12">			
+			<form action="{% url 'contacts_update' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                                
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <div class="row">          
+                    <div class="col-2 text-center">
+                        {% if contact.picture %}
+                            <img onclick="openImageDialog()" style="cursor: pointer" id="contact_picture" src="{{ contact.picture.url }}" class="rounded-circle border-img" width="100" height="100">
+                        {% else %}
+                            <img onclick="openImageDialog()" style="cursor: pointer" id="contact_picture" src="{% static 'images/default-profile.png' %}" class="rounded-circle border-img" width="100" height="100">
+                        {% endif %}
+                        <input type="file" id="picture" name="picture" style="display:none" onchange="previewImage()">
+                    </div>
+                    <div class="col-3 mt-4">
+                        <div class="form-group">
+                            <label>Identification documento</label>
+                            <input class="form-control" type="text" name="id_document" placeholder="DNI / CI / RUT / ID" value="{{ contact.id_document }}"  required="true" />
+                        </div>
+                    </div>   
+                    <div class="col-4"></div>
+                    <div class="col-3 mt-4">
+                        <div class="form-group">
+                            <label>Type contact</label>
+                            <select class="form-control" type="text" id="type_contact" name="type" required="true" >
+                                <option value="C" {% if contact.type == 'C' %} selected {% endif %} >Client</option>
+                                <option value="P" {% if contact.type == 'P' %} selected {% endif %} >Provider</option>
+                                <option value="E" {% if contact.type == 'E' %} selected {% endif %} >Employee</option>
+                            </select>
+                        </div>
+                    </div>                 
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input class="form-control" type="text" name="name" placeholder="" value="{{ contact.name }}"  required="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input class="form-control" type="text" name="address" placeholder="" value="{{ contact.address }}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>State</label>
+                            <input class="form-control" type="text" name="state" placeholder="" value="{{ contact.state }}" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input class="form-control" type="text" name="city" placeholder="" value="{{ contact.city }}" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select class="form-control" type="text" name="country">
+                                {% for country in countries %}
+                                    <option value="{{ country.id }}" {% if country.id == contact.country.id %} selected {% endif %} >{{ country.name }}</option>                                        
+                                {% endfor %}
+                            </select>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input class="form-control" type="text" name="phone" placeholder="" value="{{ contact.phone }}" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Fax</label>
+                            <input class="form-control" type="text" name="fax" placeholder="" value="{{ contact.fax }}" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Mobile</label>
+                            <input class="form-control" type="text" name="mobile" placeholder="" value="{{ contact.mobile }}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" type="email" name="email" placeholder="" value="{{ contact.email }}" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Website</label>
+                            <input class="form-control" type="url" name="website" placeholder="" value="{{ contact.website }}" />
+                        </div>
+                    </div>
+                </div>
+				<button type="submit" class="btn btn-success btn-block mt-5">Edit contact</button>
+
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block scripts_content %}
+    <script>
+		openImageDialog = () =>{
+			document.getElementById("picture").click();
+		}
+		previewImage = () => {
+			input = document.getElementById("picture")
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					document.getElementById('contact_picture').src=e.target.result;
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+{% endblock %}
