@@ -88,8 +88,19 @@ def contacts_create(request):
 def contacts_update(request, id):
     """Contacts Edit view"""
     profile = request.user.profile
-    contact = Contact.objects.get(pk=id)    
     countries = Country.objects.all()
+    error = False
+    not_exist = False
+    
+
+    try:
+        contact = Contact.objects.get(pk=id)
+    except Contact.DoesNotExist as e:
+        contact = Contact()
+        not_exist = True
+    except Exception as e:
+        contact = Contact()
+        error = e
 
     return render(
         request=request, 
@@ -98,7 +109,9 @@ def contacts_update(request, id):
             'profile': profile,
             'contact': contact,
             'countries': countries,
-            'user': request.user
+            'user': request.user,
+            'error': error,
+            'not_exist': not_exist
         }
     )
 
@@ -124,14 +137,25 @@ def contacts_view(request, id):
 def contacts_delete(request, id):
     """Contacts delete"""
     profile = request.user.profile
-    contact = Contact.objects.get(pk=id)    
+    success = False
+    error = False
+    try:
+        contact = Contact.objects.get(pk=id)
+    except Exception as e:
+        contact = Contact()
+        error = e
 
+    if request.method == 'POST':
+        contact.delete()
+        success = True
     return render(
         request=request, 
         template_name = 'contacts/delete.html',
         context={
             'profile': profile,
             'contact': contact,
-            'user': request.user
+            'user': request.user,
+            'success': success,
+            'error': error
         }
     )

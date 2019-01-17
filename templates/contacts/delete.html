@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block head_content %}
-<title>Koisoft Started | Delete contact {{ contact.id_document }}</title>
+<title>Koisoft Started | Delete contact</title>
 {% endblock %}
 
 {% block container %}
@@ -12,33 +12,41 @@
 	<hr/>
 	<div class="row justify-content-md-center mt-5" id="view_contact">
 		<div class="col-12">	
-			<form action="{% url 'contacts_delete' contact.id %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                                
-                {% if error %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                {% endif %}
-                <div class="row">    
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="form-group">
-                            <label>Identification document</label>
-                            <br/>
-                            <strong id="id_document">{{ contact.id_document }}</strong>
-                        </div>
-                    </div>   
-                    <div class="col-lg-9  col-sm-6">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <br/>
-                            <strong>
-                            {{ contact.name }}
-                            </strong>
+        
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+            <a href='{% url "contacts_list" %}' class="btn btn-primary btn-block mt-5">Go back</a>
+        {% else %}
+            {% if success %}
+                <div class="alert alert-success">Contact removed successfully</div>
+                <a href='{% url "contacts_list" %}' class="btn btn-primary btn-block mt-5">Go back</a>
+            {% else %}
+                <form action="{% url 'contacts_delete' contact.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}                
+                    
+                    <div class="row">    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="form-group">
+                                <label>Identification document</label>
+                                <br/>
+                                <strong id="id_document">{{ contact.id_document }}</strong>
+                            </div>
+                        </div>   
+                        <div class="col-lg-9  col-sm-6">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <br/>
+                                <strong>
+                                {{ contact.name }}
+                                </strong>
+                            </div>
                         </div>
                     </div>
-                </div>
-				<button type="submit" class="btn btn-danger btn-block mt-5">Delete contact</button>
 
-			</form>
+                    <button type="submit" class="btn btn-danger btn-block mt-5">Delete contact</button>
+                </form>
+            {% endif %}
+        {% endif %}
 		</div>
 	</div>
 {% endblock %}
