@@ -141,28 +141,9 @@
                         </div>
                     </div>
                 </div>
-				<button type="button" onclick="to_pdf()" class="btn btn-danger mt-5"> <i class="fas fa-file-pdf"></i> Export to PDF</button>
+				<a href="{% url 'contacts_to_pdf' contact.id %}"class="btn btn-danger mt-5"> <i class="fas fa-file-pdf"></i> Export to PDF</a>
 
 			</form>
 		</div>
 	</div>
-{% endblock %}
-
-{% block scripts_content %}
-    <script src="{% static 'js/html2canvas.js' %}"></script>
-	<script src="{% static 'js/jspdf.min.js' %}"></script>
-
-	<script>
-
-        to_pdf = () => {
-            
-                var pdf = new jsPDF('p', 'pt', 'letter');
-                pdf.html($("#view_contact").html(), {callback: function(pdf) {
-                    //window.open(pdf.output('datauristring'), '_blank');
-                    pdf.save($("#id_document").html()+".pdf");
-                }});
-        }
-		
-     </script>
-
 {% endblock %}

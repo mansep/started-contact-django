@@ -1,0 +1,122 @@
+{% load static %}
+<style>
+    body{
+        font-size: 16px;
+    }
+</style>
+<center><h1>Contact detail</h1></center>
+<hr/>
+<table cellpadding = "4">
+    <tr>
+        <td colspan="12">
+            <center>
+                {% if contact.picture %}
+                    <img id="contact_picture" src="{{ contact.picture.url }}" class="rounded-circle border-img" width="150" height="150">
+                {% else %}
+                    <img id="contact_picture" src="{{ host }}{% static 'images/default-profile.png' %}" class="rounded-circle border-img" width="150" height="150">
+                {% endif %}
+            </center>
+            <br/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <label>Identification document</label>
+            <br/>
+            <strong id="id_document">{{ contact.id_document }}</strong>
+        </td>
+        <td colspan="3">
+            <label>Type contact</label>
+            <br/>
+            <strong>
+            {% if contact.type == 'C' %}
+                Client
+            {% elif contact.type == 'P' %}
+                Provider
+            {% elif contact.type == 'E' %}
+                Employee
+            {% endif %}
+            </strong>
+        </td>    
+    </tr>
+    <tr>
+        <td colspan="12">
+            <label>Full Name</label>
+            <br/>
+            <strong>
+            {{ contact.name }}
+            </strong>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="12">
+            <label>Address</label>
+            <br/>
+            <strong>
+            {{ contact.address }}
+            </strong>
+        </td>
+    </tr>
+    <tr>            
+        <td colspan="4">
+            <label>State</label>
+            <br/>
+            <strong>
+            {{ contact.state }}
+            </strong>
+        </td>
+        <td colspan="4">
+            <label>City</label>
+            <br/>
+            <strong>
+            {{ contact.city }}
+            </strong>
+        </td>
+        <td colspan="4">
+            <label>Country</label>
+            <br/>
+            <strong>
+            {{ contact.country.name }}
+            </strong>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <label>Phone</label>
+            <br/>
+            <strong>
+            {{ contact.phone }}
+            </strong>
+        </td>
+        <td colspan="4">
+            <label>Fax</label>
+            <br/>
+            <strong>
+            {{ contact.fax }}
+            </strong>
+        </td>
+        <td colspan="4">
+            <label>Mobile</label>
+            <br/>
+            <strong>
+            {{ contact.mobile }}
+            </strong>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6">
+            <label>Email</label>
+            <br/>
+            <strong>
+            {{ contact.email }}
+            </strong>
+        </td>
+        <td colspan="6">
+            <label>Website</label>
+            <br/>
+            <strong>
+            {{ contact.website }}
+            </strong>
+        </td>
+    </tr>
+</table>

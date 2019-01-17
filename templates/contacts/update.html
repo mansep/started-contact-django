@@ -12,17 +12,17 @@
 	<hr/>
 	<div class="row justify-content-md-center mt-5">
 		<div class="col-12">			
-            {% if not_exist %}
-                <div class="alert alert-danger">Contact not exist</div>
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>                    
                 <a href='{% url "contacts_list" %}' class="btn btn-primary btn-block mt-5">Go back</a>
-
             {% else %}
                 <form action="{% url 'contacts_update' contact.id %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                                    
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error }}</div>
+                    
+                    {% if success %}
+                        <div class="alert alert-success">{{ success }}</div>
                     {% endif %}
+                                    
                     <div class="row">          
                         <div class="col-2 text-center">
                             {% if contact.picture %}

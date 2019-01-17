@@ -21,7 +21,7 @@ class Contact(models.Model):
     address = models.CharField(max_length=200, blank=True, null=True)
     state = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
-    country = models.OneToOneField(Country, on_delete=models.PROTECT)
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
     phone = models.CharField(max_length=20, blank=True, null=True)
     fax = models.CharField(max_length=20, blank=True, null=True)
     mobile = models.CharField(max_length=20, blank=True, null=True)
