@@ -11,6 +11,16 @@
 	<p class="font-weight-light small">Complete form to change your profile</p>
 	<hr/>
 	<div class="row justify-content-md-center mt-3">
+		{% if warning %}
+			<div class="col-12">			
+				<div class="alert alert-warning">{{ warning }}</div>
+			</div>
+		{% endif %}
+		{% if success %}
+			<div class="col-12">			
+				<div class="alert alert-success">{{ success }}</div>
+			</div>
+		{% endif %}
 		<div class="col-5">			
 			<form action="{% url 'profile_update' %}" method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
@@ -26,7 +36,7 @@
 					{% endif %}
 					<br/>
 					<button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="openImageDialog()">Change profile image</button>
-					<input type="file" id="picture" name="picture"  required="true" style="display:none" onchange="previewImage()">
+					<input type="file" id="picture" name="picture" style="display:none" onchange="previewImage()">
 				</div
 				<br/>
 

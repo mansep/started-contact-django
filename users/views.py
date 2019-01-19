@@ -12,8 +12,11 @@ from users.forms import ProfileForm, ChangePasswordForm
 @login_required
 def profile_view(request):
 	"""Profile view"""
-	profile = request.user.profile
-	
+	try:
+		profile = request.user.profile
+	except Exception as e:
+		profile = Profile()
+
 	return render(
 		request=request, 
 		template_name = 'users/profile_view.html',
@@ -25,8 +28,17 @@ def profile_view(request):
 
 @login_required
 def profile_update(request):
+
+	warning = False
+	success = False
 	"""Update profile user"""
-	profile = request.user.profile
+	try:
+		profile = request.user.profile
+	except Exception as e:
+		profile = Profile()
+		profile.user = request.user
+		warning = "Complete profile"
+
 	if request.method == 'POST':
 		form = ProfileForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -39,10 +51,12 @@ def profile_update(request):
 			user.save()
 
 			profile.phone = data['phone']
-			profile.picture = data['picture']
+			if data['picture']:
+				profile.picture = data['picture']
 			profile.save()
-
-			return redirect('profile_update')
+			
+			success = "Successfully edited profile"
+			warning = False
 	else:
 		form = ProfileForm()	
 
@@ -52,7 +66,9 @@ def profile_update(request):
 		context={
 			'profile': profile,
 			'user': request.user,
-			'form': form
+			'form': form,
+			'success': success,
+			'warning': warning,
 		}
 	)
 
