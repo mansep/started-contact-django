@@ -1,2 +1,11 @@
 # started-ks-django
-Started application for contact management, customer and supplier management or other uses - Django
+Simple contact management Django application, created with the purpose of using it as an initial template for administrative applications.
+
+### Specifications
+- Django 2.1.5
+- Bootstrap 4
+### Required packages
+
+```sh
+$ pip install xlwt xhtml2pdf
+```
