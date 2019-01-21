@@ -12,7 +12,7 @@ class ProfileMiddleware:
 	def __call__(self, request):
 		if request.user.is_authenticated:
 			if request.path not in [reverse('profile_update'), reverse('logout'), reverse('login')]:
-				if request.path[1:6] not in ('stati', 'media')
+				if request.path[1:6] not in ('stati', 'media'):
 					try:
 						profile = request.user.profile
 					except Exception as e:
